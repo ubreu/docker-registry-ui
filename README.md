@@ -1,6 +1,18 @@
 # DockerRegistryUi
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.3.2.
+Install the CLI by running `npm install -g @angular/cli`.
+
+## Install dependencies
+
+Run "npm install" inside this project folder to install all dependencies.
+Make sure you use the latest version of the CLI (upgrade guide below)
+
+## Upgrade the CLI
+
+    npm uninstall -g angular-cli @angular/cli
+    npm cache clean
+    npm install -g @angular/cli
 
 ## Development server
 
