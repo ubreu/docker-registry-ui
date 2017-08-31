@@ -1,13 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
 import { RepositoriesComponent } from './repositories/repositories.component';
+import { RepositoryListComponent } from './repositories/repository-list/repository-list.component';
+import { RepositoryItemComponent } from './repositories/repository-list/repository-item/repository-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RepositoriesComponent
+    RepositoriesComponent,
+    RepositoryListComponent,
+    RepositoryItemComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-success">New Recipe</button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-12">
+    <app-repository-item *ngFor="let repository of repositories" [repository]="repository"></app-repository-item>
+  </div>
+</div>
