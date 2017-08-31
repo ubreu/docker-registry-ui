@@ -1,22 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Repository } from '../../repository.model';
-import { RepositoryService } from '../../repository.service';
 
 @Component({
   selector: 'app-repository-item',
   templateUrl: './repository-item.component.html',
   styleUrls: ['./repository-item.component.scss']
 })
-export class RepositoryItemComponent implements OnInit {
+export class RepositoryItemComponent {
   @Input() repository: Repository;
-
-  constructor(private repositoryService: RepositoryService) { }
-
-  ngOnInit() {
-  }
+  @Output() repositorySelected = new EventEmitter<Repository>();
 
   onSelected() {
-    this.repositoryService.repositorySelected.emit(this.repository);
+    this.repositorySelected.emit(this.repository);
   }
 }

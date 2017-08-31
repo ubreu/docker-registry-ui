@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Repository } from '../repository.model';
+import { Repository, RepositoryWithTags, Manifest } from '../repository.model';
 import { RepositoryService } from '../repository.service';
 
 @Component({
@@ -10,6 +10,7 @@ import { RepositoryService } from '../repository.service';
 })
 export class RepositoryListComponent implements OnInit {
   repositories: Repository[];
+  manifests: Manifest[];
 
   constructor(private repositoryService: RepositoryService) {
   }
@@ -17,7 +18,17 @@ export class RepositoryListComponent implements OnInit {
   ngOnInit() {
     this.repositoryService.repositories().subscribe(repositories => {
       this.repositories = repositories;
-      this.repositories.forEach(r => console.log(r));
+    });
+  }
+
+  onSelected(repository: Repository) {
+    this.repositoryService.tags(repository).subscribe(selectedRepository => {
+      this.manifests = [];
+      selectedRepository.tags.forEach(tag => {
+        this.repositoryService.manifest({ name: repository.name, tag: tag }).subscribe(manifest => {
+          this.manifests.push(manifest);
+        });
+      });
     });
   }
 }

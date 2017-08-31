@@ -1,15 +1,13 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
 
-import { Repository } from './repository.model';
+import { Repository, RepositoryWithTags, Manifest, ManifestMetadata } from './repository.model';
 
 @Injectable()
 export class RepositoryService {
-  repositorySelected = new EventEmitter<Repository>();
-
   private eventsUrl = 'http://localhost:5000/v2';
 
   constructor(private http: HttpClient) { }
@@ -22,6 +20,20 @@ export class RepositoryService {
       .catch(this.handleError);
   }
 
+  tags(repository: Repository): Observable<RepositoryWithTags> {
+    const url = `${this.eventsUrl}/${repository.name}/tags/list`;
+    return this.http.get<RepositoryWithTags>(url)
+      .catch(this.handleError);
+  }
+
+  manifest(manifest: Manifest): Observable<Manifest> {
+    const url = `${this.eventsUrl}/${manifest.name}/manifests/${manifest.tag}`;
+    return this.http.get<ManifestMetadata>(url)
+      .map(data => _.get(data, 'history'))
+      .map(data => this.addManifestHistory(manifest, data))
+      .catch(this.handleError);
+  }
+
   private parseRepositories = (repositories: Repository[]) => {
     return repositories.map(e => this.parseRepository(e));
   }
@@ -30,6 +42,15 @@ export class RepositoryService {
     return {
       name: data
     };
+  }
+
+  private addManifestHistory(manifest: Manifest, history: any): Manifest {
+    if (history.length > 0) {
+      const lastHistoryLayer = JSON.parse(_.get(history[0], 'v1Compatibility'));
+      manifest.metadata = lastHistoryLayer;
+      manifest.metadata.labels = _.get(lastHistoryLayer, 'config.Labels');
+    }
+    return manifest;
   }
 
   private handleError(error: HttpErrorResponse): Observable<any> {

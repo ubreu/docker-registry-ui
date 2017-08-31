@@ -1,0 +1,11 @@
+<a href="#" class="list-group-item clearfix">
+  <div>
+    <h5>{{ manifest.name }}</h5>
+    <h5>{{ manifest.tag }}</h5>
+    <h5>{{ manifest.metadata.author }}</h5>
+    <h5>{{ manifest.metadata.docker_version }}</h5>
+    <h5>{{ manifest.metadata.id }}</h5>
+    <h5>{{ manifest.metadata.os }}</h5>
+    <h5 *ngFor="let label of manifest.metadata.labels | keys">{{ label.key }} - {{ label.value }}</h5>
+  </div>
+</a>
