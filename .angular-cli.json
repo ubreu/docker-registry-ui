@@ -20,10 +20,13 @@
       "prefix": "app",
       "styles": [
         "styles.scss",
+        "../node_modules/ag-grid/dist/styles/ag-grid.css",
+        "../node_modules/ag-grid/dist/styles/theme-bootstrap.css",
         "../node_modules/bootstrap/scss/bootstrap.scss",
         "../node_modules/font-awesome/scss/font-awesome.scss"
       ],
       "scripts": [
+        "../node_modules/ag-grid/dist/ag-grid.js",
         "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/popper.js/dist/umd/popper.min.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js"
