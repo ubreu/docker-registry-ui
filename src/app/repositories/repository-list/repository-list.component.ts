@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 
 import { Repository, RepositoryWithTags, Manifest } from '../repository.model';
 import { RepositoryService } from '../repository.service';
@@ -23,11 +24,12 @@ export class RepositoryListComponent implements OnInit {
 
   onSelected(repository: Repository) {
     this.repositoryService.tags(repository).subscribe(selectedRepository => {
-      this.manifests = [];
+      const observables: Observable<Manifest>[] = [];
       selectedRepository.tags.forEach(tag => {
-        this.repositoryService.manifest({ name: repository.name, tag: tag }).subscribe(manifest => {
-          this.manifests.push(manifest);
-        });
+        observables.push(this.repositoryService.manifest({ name: repository.name, tag: tag }));
+      });
+      Observable.forkJoin(observables).subscribe(manifests => {
+        this.manifests = manifests;
       });
     });
   }

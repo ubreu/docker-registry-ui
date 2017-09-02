@@ -1,5 +1,3 @@
-<div class="row">
-  <div class="col-xs-12">
-    <app-manifest-item *ngFor="let manifest of manifests" [manifest]="manifest"></app-manifest-item>
-  </div>
-</div>
+<ag-grid-angular style="width: 100%; height: 100%;" class="ag-bootstrap" [rowData]="manifests" [columnDefs]="columnDefs"
+  [gridOptions]="gridOptions" (gridReady)="onGridReady($event)" enableColResize enableSorting enableFilter>
+</ag-grid-angular>
