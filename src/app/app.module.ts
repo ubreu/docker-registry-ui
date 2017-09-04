@@ -14,6 +14,7 @@ import { RepositoryService } from './repositories/repository.service';
 
 import { KeysPipe } from './shared/keys.pipe';
 import { HeaderComponent } from './shared/header-component/header.component';
+import { ManifestDetailComponent } from './repositories/manifest-list/manifest-detail/manifest-detail.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HeaderComponent } from './shared/header-component/header.component';
     RepositoryListComponent,
     RepositoryItemComponent,
     ManifestListComponent,
-    KeysPipe
+    KeysPipe,
+    ManifestDetailComponent
   ],
   imports: [
     BrowserModule,

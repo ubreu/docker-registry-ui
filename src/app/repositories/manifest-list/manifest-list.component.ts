@@ -16,10 +16,12 @@ export class ManifestListComponent implements OnInit {
   gridOptions: GridOptions;
   columnDefs: any[];
   manifests: Manifest[];
+  selectedManifest: Manifest;
 
   constructor(private repositoryService: RepositoryService, private route: ActivatedRoute) {
     this.gridOptions = <GridOptions>{};
     this.gridOptions.floatingFilter = true;
+    this.gridOptions.rowSelection = 'single';
     this.gridOptions.defaultColDef = {
       headerComponentFramework: <{ new(): HeaderComponent }>HeaderComponent,
       headerComponentParams: {
@@ -55,7 +57,7 @@ export class ManifestListComponent implements OnInit {
     params.api.sizeColumnsToFit();
   }
 
-  selectAllRows() {
-    this.gridOptions.api.selectAll();
+  onSelectionChanged(event) {
+    this.selectedManifest = event.api.getSelectedRows()[0];
   }
 }
