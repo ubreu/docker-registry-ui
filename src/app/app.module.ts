@@ -24,8 +24,8 @@ import { ManifestDetailComponent } from './repositories/manifest-list/manifest-d
     RepositoryListComponent,
     RepositoryItemComponent,
     ManifestListComponent,
-    KeysPipe,
-    ManifestDetailComponent
+    ManifestDetailComponent,
+    KeysPipe
   ],
   imports: [
     BrowserModule,
