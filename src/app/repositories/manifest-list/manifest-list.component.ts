@@ -32,7 +32,8 @@ export class ManifestListComponent implements OnInit {
       { headerName: 'Image ID', field: 'metadata.id', headerComponentParams: { menuIcon: 'fa fa-qrcode' } },
       { headerName: 'Created', field: 'metadata.created', headerComponentParams: { menuIcon: 'fa fa-calendar' } },
       { headerName: 'Author', field: 'metadata.author', headerComponentParams: { menuIcon: 'fa fa-user' } },
-      { headerName: 'Docker Version', field: 'metadata.docker_version', headerComponentParams: { menuIcon: 'fa fa-ship' } }
+      { headerName: 'Docker Version', field: 'metadata.docker_version', headerComponentParams: { menuIcon: 'fa fa-ship' } },
+      { headerName: 'OS', field: 'metadata.os', headerComponentParams: { menuIcon: 'fa fa-laptop' } }
     ];
   }
 
