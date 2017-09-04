@@ -8,12 +8,12 @@ import { Repository, RepositoryWithTags, Manifest, ManifestMetadata } from './re
 
 @Injectable()
 export class RepositoryService {
-  private eventsUrl = 'http://localhost:5000/v2';
+  private url = 'http://localhost:5000/v2';
 
   constructor(private http: HttpClient) { }
 
   repositories(): Observable<Repository[]> {
-    const url = `${this.eventsUrl}/_catalog`;
+    const url = `${this.url}/_catalog?n=1000`;
     return this.http.get(url)
       .map(data => _.get(data, 'repositories'))
       .map(data => this.parseRepositories(data))
@@ -21,13 +21,13 @@ export class RepositoryService {
   }
 
   tags(repository: Repository): Observable<RepositoryWithTags> {
-    const url = `${this.eventsUrl}/${repository.name}/tags/list`;
+    const url = `${this.url}/${repository.name}/tags/list`;
     return this.http.get<RepositoryWithTags>(url)
       .catch(this.handleError);
   }
 
   manifest(manifest: Manifest): Observable<Manifest> {
-    const url = `${this.eventsUrl}/${manifest.name}/manifests/${manifest.tag}`;
+    const url = `${this.url}/${manifest.name}/manifests/${manifest.tag}`;
     return this.http.get<ManifestMetadata>(url)
       .map(data => _.get(data, 'history'))
       .map(data => this.addManifestHistory(manifest, data))
@@ -49,6 +49,7 @@ export class RepositoryService {
       const lastHistoryLayer = JSON.parse(_.get(history[0], 'v1Compatibility'));
       manifest.metadata = lastHistoryLayer;
       manifest.metadata.labels = _.get(lastHistoryLayer, 'config.Labels');
+      manifest.metadata.author = lastHistoryLayer.author || lastHistoryLayer.labels['maintainer'];
     }
     return manifest;
   }
