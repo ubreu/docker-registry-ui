@@ -1,8 +1,5 @@
 <div class="row">
-  <div class="col-lg-4">
+  <div class="col-lg-12">
     <app-repository-item *ngFor="let repository of repositories" [repository]="repository" (repositorySelected)="onSelected($event)"></app-repository-item>
-  </div>
-  <div class="col-lg-8">
-    <app-manifest-list [manifests]="manifests"></app-manifest-list>
   </div>
 </div>
