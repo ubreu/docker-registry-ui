@@ -3,6 +3,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { GridOptions } from 'ag-grid/main';
 import * as Autolinker from 'autolinker';
+import * as moment from 'moment';
+import Moment = moment.Moment;
 
 import { HeaderComponent } from '../../shared/header-component/header.component';
 import { Manifest } from '../repository.model';
@@ -30,8 +32,14 @@ export class ManifestListComponent implements OnInit {
 
     this.columnDefs = [
       { headerName: 'Tag', field: 'tag', headerComponentParams: { menuIcon: 'fa fa-qrcode' } },
-      { headerName: 'Image ID', field: 'metadata.id', headerComponentParams: { menuIcon: 'fa fa-qrcode' } },
-      { headerName: 'Created', field: 'metadata.created', headerComponentParams: { menuIcon: 'fa fa-calendar' } },
+      {
+        headerName: 'Image ID', field: 'metadata.id', valueFormatter: this.idFormatter,
+        headerComponentParams: { menuIcon: 'fa fa-qrcode' }
+      },
+      {
+        headerName: 'Created', field: 'metadata.created', valueFormatter: this.dateFormatter,
+        headerComponentParams: { menuIcon: 'fa fa-calendar' }
+      },
       {
         headerName: 'Author', field: 'metadata.author', valueFormatter: this.authorFormatter,
         headerComponentParams: { menuIcon: 'fa fa-user' }
@@ -65,5 +73,14 @@ export class ManifestListComponent implements OnInit {
 
   authorFormatter(params) {
     return Autolinker.link(params.value);
+  }
+
+  dateFormatter(params) {
+    console.log(params);
+    return moment(params.value).fromNow();
+  }
+
+  idFormatter(params) {
+    return params.value.substring(0, 12);
   }
 }
