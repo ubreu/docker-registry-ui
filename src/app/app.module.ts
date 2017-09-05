@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { RepositoriesComponent } from './repositories/repositories.component';
 import { RepositoryListComponent } from './repositories/repository-list/repository-list.component';
 import { RepositoryItemComponent } from './repositories/repository-list/repository-item/repository-item.component';
 import { ManifestListComponent } from './repositories/manifest-list/manifest-list.component';
@@ -20,7 +19,6 @@ import { ManifestDetailComponent } from './repositories/manifest-list/manifest-d
   declarations: [
     AppComponent,
     HeaderComponent,
-    RepositoriesComponent,
     RepositoryListComponent,
     RepositoryItemComponent,
     ManifestListComponent,
