@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
+import { NavigationComponent } from './shared/navigation/navigation.component';
 import { RepositoryListComponent } from './repositories/repository-list/repository-list.component';
 import { RepositoryItemComponent } from './repositories/repository-list/repository-item/repository-item.component';
 import { ManifestListComponent } from './repositories/manifest-list/manifest-list.component';
@@ -18,6 +19,7 @@ import { ManifestDetailComponent } from './repositories/manifest-list/manifest-d
 @NgModule({
   declarations: [
     AppComponent,
+    NavigationComponent,
     HeaderComponent,
     RepositoryListComponent,
     RepositoryItemComponent,

@@ -1,9 +1,13 @@
-<div *ngIf="manifest" class="col-md-12">
-  <div class="container-fluid">
-    <h4>Labels of {{ manifest.name }}:{{ manifest.tag }}</h4>
-    <div *ngFor="let label of manifest.metadata.labels | keys" class="row">
-      <div class="col-md-6">{{ label.key }}</div>
-      <div class="col-md-6">{{ label.value }}</div>
-    </div>
+<div class="col-lg-12 col-md-8" *ngIf="manifest">
+  <h3 class="sub-header mt-5">Labels</h3>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <tbody>
+        <tr *ngFor="let label of manifest.metadata.labels | keys">
+          <td>{{ label.key }}</td>
+          <td>{{ label.value }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

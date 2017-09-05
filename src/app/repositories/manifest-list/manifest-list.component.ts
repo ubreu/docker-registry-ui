@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import Moment = moment.Moment;
 
 import { HeaderComponent } from '../../shared/header-component/header.component';
-import { Manifest } from '../repository.model';
+import { Repository, Manifest } from '../repository.model';
 import { RepositoryService } from '../repository.service';
 
 @Component({
@@ -18,8 +18,11 @@ import { RepositoryService } from '../repository.service';
 export class ManifestListComponent implements OnInit {
   gridOptions: GridOptions;
   columnDefs: any[];
+  repository: Repository;
   manifests: Manifest[];
   selectedManifest: Manifest;
+  tableWidth: number;
+  tableHeight: number;
 
   constructor(private repositoryService: RepositoryService, private route: ActivatedRoute) {
     this.gridOptions = <GridOptions>{};
@@ -53,12 +56,17 @@ export class ManifestListComponent implements OnInit {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.repositoryService.tags({ name: params.get('namespace') + '/' + params.get('name') }))
       .subscribe(repository => {
+        this.repository = repository;
         const observables: Observable<Manifest>[] = [];
         repository.tags.forEach(tag => {
           observables.push(this.repositoryService.manifest({ name: repository.name, tag: tag }));
         });
         Observable.forkJoin(observables).subscribe(manifests => {
           this.manifests = manifests;
+
+          this.tableHeight = Math.min(30 * manifests.length + 50, 400);
+          this.tableWidth = 1200;
+          this.gridOptions.api.doLayout();
         });
       });
   }

@@ -1,9 +1,14 @@
+<app-navigation [repository]="repository"></app-navigation>
 <div class="container-fluid">
+  <h1 *ngIf="repository" class="display-8 d-none d-sm-block">
+    Image Details of {{ repository.name }}
+  </h1>
+  <h3 class="sub-header mt-5">Tags</h3>
   <div class="row">
     <div class="col-lg-12">
-      <ag-grid-angular style="width: 1000px; height: 300px;" class="ag-bootstrap" [rowData]="manifests" [columnDefs]="columnDefs"
-        [gridOptions]="gridOptions" (gridReady)="onGridReady($event)" (selectionChanged)="onSelectionChanged($event)" [rowSelection]="'single'"
-        suppressCellSelection enableColResize enableSorting floatingFilter animateRows>
+      <ag-grid-angular [ngStyle]="{'width': tableWidth +'px', 'height': tableHeight + 'px'}" class="ag-bootstrap" [rowData]="manifests"
+        [columnDefs]="columnDefs" [gridOptions]="gridOptions" (gridReady)="onGridReady($event)" (selectionChanged)="onSelectionChanged($event)"
+        [rowSelection]="'single'" suppressCellSelection enableColResize enableSorting floatingFilter animateRows>
       </ag-grid-angular>
     </div>
   </div>

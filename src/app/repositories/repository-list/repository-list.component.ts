@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import * as _ from 'lodash';
 
 import { Repository, RepositoryWithTags, Manifest } from '../repository.model';
 import { RepositoryService } from '../repository.service';
@@ -11,6 +12,8 @@ import { RepositoryService } from '../repository.service';
 })
 export class RepositoryListComponent implements OnInit {
   repositories: Repository[];
+  totalImageCount: number;
+  totalRepositoryCount: number;
   manifests: Manifest[];
 
   constructor(private repositoryService: RepositoryService) {
@@ -19,6 +22,10 @@ export class RepositoryListComponent implements OnInit {
   ngOnInit() {
     this.repositoryService.repositories().subscribe(repositories => {
       this.repositories = repositories;
+      const iteratee = (it) => it.name.substring(0, it.name.indexOf('/'));
+      const result = _.map(_.uniqBy(repositories, iteratee), iteratee);
+      this.totalRepositoryCount = result.length;
+      this.totalImageCount = repositories.length;
     });
   }
 
