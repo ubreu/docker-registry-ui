@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Manifest } from '../../repository.model';
+import { Manifest, Label } from '../../repository.model';
 
 @Component({
   selector: 'app-manifest-detail',

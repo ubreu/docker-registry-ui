@@ -1,3 +1,9 @@
-<div *ngIf="manifest" class="col-lg-12">
-  {{ manifest.name }}
+<div *ngIf="manifest" class="col-md-12">
+  <div class="container-fluid">
+    <h4>Labels of {{ manifest.name }}:{{ manifest.tag }}</h4>
+    <div *ngFor="let label of manifest.metadata.labels | keys" class="row">
+      <div class="col-md-6">{{ label.key }}</div>
+      <div class="col-md-6">{{ label.value }}</div>
+    </div>
+  </div>
 </div>

@@ -3,7 +3,7 @@
     <div class="col-lg-12">
       <ag-grid-angular style="width: 1000px; height: 300px;" class="ag-bootstrap" [rowData]="manifests" [columnDefs]="columnDefs"
         [gridOptions]="gridOptions" (gridReady)="onGridReady($event)" (selectionChanged)="onSelectionChanged($event)" [rowSelection]="'single'"
-        suppressCellSelection enableColResize enableSorting enableFilter animateRows floatingFilter>
+        suppressCellSelection enableColResize enableSorting floatingFilter animateRows>
       </ag-grid-angular>
     </div>
   </div>
