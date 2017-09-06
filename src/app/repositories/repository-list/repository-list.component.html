@@ -32,8 +32,16 @@
     </div>
   </div>
   <div class="row">
+    <div class="col-lg-2">
+      <p class="lead mt-5">
+        <input type="search" placeholder="Filter repositories ..." (input)="nameFilter = $event.target.value" class="form-control"
+        />
+      </p>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-lg-12">
-      <app-repository-item *ngFor="let repository of repositories" [repository]="repository" (repositorySelected)="onSelected($event)"></app-repository-item>
+      <app-repository-item *ngFor="let repository of repositories | name:nameFilter" [repository]="repository" (repositorySelected)="onSelected($event)"></app-repository-item>
     </div>
   </div>
 </div>

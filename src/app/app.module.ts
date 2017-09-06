@@ -13,6 +13,7 @@ import { ManifestListComponent } from './repositories/manifest-list/manifest-lis
 import { RepositoryService } from './repositories/repository.service';
 
 import { KeysPipe } from './shared/keys.pipe';
+import { NamePipe } from './shared/name.pipe';
 import { HeaderComponent } from './shared/header-component/header.component';
 import { ManifestDetailComponent } from './repositories/manifest-list/manifest-detail/manifest-detail.component';
 
@@ -25,7 +26,8 @@ import { ManifestDetailComponent } from './repositories/manifest-list/manifest-d
     RepositoryItemComponent,
     ManifestListComponent,
     ManifestDetailComponent,
-    KeysPipe
+    KeysPipe,
+    NamePipe
   ],
   imports: [
     BrowserModule,

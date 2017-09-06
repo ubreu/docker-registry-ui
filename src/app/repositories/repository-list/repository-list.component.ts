@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
+import { NamePipe } from '../../shared/name.pipe';
 import { Repository, RepositoryWithTags, Manifest } from '../repository.model';
 import { RepositoryService } from '../repository.service';
 
@@ -12,9 +13,10 @@ import { RepositoryService } from '../repository.service';
 })
 export class RepositoryListComponent implements OnInit {
   repositories: Repository[];
+  manifests: Manifest[];
   totalImageCount: number;
   totalRepositoryCount: number;
-  manifests: Manifest[];
+  nameFilter: string;
 
   constructor(private repositoryService: RepositoryService) {
   }
