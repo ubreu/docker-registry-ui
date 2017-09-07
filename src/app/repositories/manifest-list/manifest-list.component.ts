@@ -6,7 +6,7 @@ import * as Autolinker from 'autolinker';
 import * as moment from 'moment';
 import Moment = moment.Moment;
 
-import { HeaderComponent } from '../../shared/header-component/header.component';
+import { GridHeaderComponent } from '../../shared/grid-header/grid-header.component';
 import { Repository, Manifest } from '../repository.model';
 import { RepositoryService } from '../repository.service';
 
@@ -27,7 +27,7 @@ export class ManifestListComponent implements OnInit {
   constructor(private repositoryService: RepositoryService, private route: ActivatedRoute) {
     this.gridOptions = <GridOptions>{};
     this.gridOptions.defaultColDef = {
-      headerComponentFramework: <{ new(): HeaderComponent }>HeaderComponent,
+      headerComponentFramework: <{ new(): GridHeaderComponent }>GridHeaderComponent,
       headerComponentParams: {
         menuIcon: 'fa-bars'
       }

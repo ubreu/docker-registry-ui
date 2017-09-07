@@ -14,14 +14,14 @@ import { RepositoryService } from './repositories/repository.service';
 
 import { KeysPipe } from './shared/keys.pipe';
 import { NamePipe } from './shared/name.pipe';
-import { HeaderComponent } from './shared/header-component/header.component';
+import { GridHeaderComponent } from './shared/grid-header/grid-header.component';
 import { ManifestDetailComponent } from './repositories/manifest-list/manifest-detail/manifest-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    HeaderComponent,
+    GridHeaderComponent,
     RepositoryListComponent,
     RepositoryItemComponent,
     ManifestListComponent,
@@ -31,7 +31,7 @@ import { ManifestDetailComponent } from './repositories/manifest-list/manifest-d
   ],
   imports: [
     BrowserModule,
-    AgGridModule.withComponents([HeaderComponent]),
+    AgGridModule.withComponents([GridHeaderComponent]),
     HttpClientModule,
     AppRoutingModule
   ],

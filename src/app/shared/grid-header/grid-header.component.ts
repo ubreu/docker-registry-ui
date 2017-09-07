@@ -7,10 +7,10 @@ interface MyParams extends IHeaderParams {
 }
 
 @Component({
-  templateUrl: 'header.component.html',
-  styleUrls: ['header.component.scss']
+  templateUrl: 'grid-header.component.html',
+  styleUrls: ['grid-header.component.scss']
 })
-export class HeaderComponent implements IHeaderAngularComp {
+export class GridHeaderComponent implements IHeaderAngularComp {
   public params: MyParams;
   public sorted: string;
   private elementRef: ElementRef;
