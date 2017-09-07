@@ -36,10 +36,6 @@ export class ManifestListComponent implements OnInit {
     this.columnDefs = [
       { headerName: 'Tag', field: 'tag', headerComponentParams: { menuIcon: 'fa fa-qrcode' } },
       {
-        headerName: 'Image ID', field: 'metadata.id', valueFormatter: this.idFormatter,
-        headerComponentParams: { menuIcon: 'fa fa-qrcode' }
-      },
-      {
         headerName: 'Created', field: 'metadata.created', valueFormatter: this.dateFormatter,
         headerComponentParams: { menuIcon: 'fa fa-calendar' }
       },
@@ -84,11 +80,6 @@ export class ManifestListComponent implements OnInit {
   }
 
   dateFormatter(params) {
-    console.log(params);
     return moment(params.value).fromNow();
-  }
-
-  idFormatter(params) {
-    return params.value.substring(0, 12);
   }
 }
