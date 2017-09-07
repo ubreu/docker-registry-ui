@@ -5,15 +5,15 @@ import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
 
 import { Repository, RepositoryWithTags, Manifest, ManifestMetadata } from './repository.model';
+import { AppConfig } from '../app.config';
 
 @Injectable()
 export class RepositoryService {
-  private url = 'http://localhost:5000/v2';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private appConfig: AppConfig) { }
 
   repositories(): Observable<Repository[]> {
-    const url = `${this.url}/_catalog?n=1000`;
+    const url = `${this.appConfig.getRegistryHost()}/v2/_catalog?n=1000`;
     return this.http.get(url)
       .map(data => _.get(data, 'repositories'))
       .map(data => this.parseRepositories(data))
@@ -21,13 +21,13 @@ export class RepositoryService {
   }
 
   tags(repository: Repository): Observable<RepositoryWithTags> {
-    const url = `${this.url}/${repository.name}/tags/list`;
+    const url = `${this.appConfig.getRegistryHost()}/v2/${repository.name}/tags/list`;
     return this.http.get<RepositoryWithTags>(url)
       .catch(this.handleError);
   }
 
   manifest(manifest: Manifest): Observable<Manifest> {
-    const url = `${this.url}/${manifest.name}/manifests/${manifest.tag}`;
+    const url = `${this.appConfig.getRegistryHost()}/v2/${manifest.name}/manifests/${manifest.tag}`;
     return this.http.get<ManifestMetadata>(url)
       .map(data => _.get(data, 'history'))
       .map(data => this.addManifestHistory(manifest, data))

@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular/main';
 import { HttpClientModule } from '@angular/common/http';
 
+import { APP_INITIALIZER } from '@angular/core';
+import { AppConfig, AppConfigLoader } from './app.config';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -35,7 +37,16 @@ import { ManifestDetailComponent } from './repositories/manifest-list/manifest-d
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [RepositoryService],
+  providers: [
+    RepositoryService,
+    AppConfig,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: AppConfigLoader,
+      deps: [AppConfig],
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
