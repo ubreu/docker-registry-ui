@@ -4,10 +4,11 @@ import { Observable } from 'rxjs/Rx';
 import { GridOptions } from 'ag-grid/main';
 import * as Autolinker from 'autolinker';
 import * as moment from 'moment';
+import * as _ from 'lodash';
 import Moment = moment.Moment;
 
 import { GridHeaderComponent } from '../../shared/grid-header/grid-header.component';
-import { Repository, Manifest } from '../repository.model';
+import { RepositoryWithTags, Manifest } from '../repository.model';
 import { RepositoryService } from '../repository.service';
 
 @Component({
@@ -18,7 +19,7 @@ import { RepositoryService } from '../repository.service';
 export class ManifestListComponent implements OnInit {
   gridOptions: GridOptions;
   columnDefs: any[];
-  repository: Repository;
+  repository: RepositoryWithTags;
   manifests: Manifest[];
   selectedManifest: Manifest;
   tableWidth: number;
@@ -54,6 +55,7 @@ export class ManifestListComponent implements OnInit {
       .subscribe(repository => {
         this.repository = repository;
         const observables: Observable<Manifest>[] = [];
+        this.repository.tags = _.reverse(_.sortBy(this.repository.tags));
         repository.tags.forEach(tag => {
           observables.push(this.repositoryService.manifest({ name: repository.name, tag: tag }));
         });
