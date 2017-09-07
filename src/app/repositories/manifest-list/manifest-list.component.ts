@@ -63,7 +63,7 @@ export class ManifestListComponent implements OnInit {
           this.manifests = manifests;
 
           this.tableHeight = Math.min(30 * manifests.length + 50, 400);
-          this.tableWidth = 1200;
+          this.tableWidth = 1020;
           this.gridOptions.api.doLayout();
         });
       });
