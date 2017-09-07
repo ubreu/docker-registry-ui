@@ -18,13 +18,13 @@ cat <<EOF > $WORK_DIR/Dockerfile
 FROM $TEST_IMAGE:latest
 LABEL vendor="Acme Corp" \
   maintainer="John Doe <john.doe@hotmail.com>" \
-  base_iamge="$TEST_IMAGE"
+  base_image="$TEST_IMAGE"
 EOF
 
 IMAGE_ID=$(docker build -q $WORK_DIR)
 echo "tagging images using id $IMAGE_ID...\n"
 for repo in "acme/$TEST_IMAGE" "initech/$TEST_IMAGE"; do
-  for i in {01..50}; do
+  for i in {01..100}; do
    docker tag $IMAGE_ID localhost:5000/$repo:$(printf "%02d" $i)
   done;
   docker push localhost:5000/$repo
