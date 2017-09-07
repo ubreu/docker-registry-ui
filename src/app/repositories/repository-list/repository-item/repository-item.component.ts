@@ -9,9 +9,4 @@ import { Repository } from '../../repository.model';
 })
 export class RepositoryItemComponent {
   @Input() repository: Repository;
-  @Output() repositorySelected = new EventEmitter<Repository>();
-
-  onSelected() {
-    this.repositorySelected.emit(this.repository);
-  }
 }
