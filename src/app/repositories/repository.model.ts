@@ -14,9 +14,10 @@ export interface Label {
 
 export interface ManifestMetadata {
   architecture?: string;
-  author: string;
+  author?: string;
+  created: string;
   docker_version?: string;
-  id: string;
+  id?: string;
   os?: string;
   labels?: Label[];
 }

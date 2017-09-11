@@ -1,13 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { GridOptions } from 'ag-grid/main';
 import * as Autolinker from 'autolinker';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import Moment = moment.Moment;
 
-import { GridHeaderComponent } from '../../shared/grid-header/grid-header.component';
 import { RepositoryWithTags, Manifest } from '../repository.model';
 import { RepositoryService } from '../repository.service';
 
@@ -17,64 +15,38 @@ import { RepositoryService } from '../repository.service';
   styleUrls: ['./manifest-list.component.scss']
 })
 export class ManifestListComponent implements OnInit {
-  gridOptions: GridOptions;
-  columnDefs: any[];
   repository: RepositoryWithTags;
-  manifests: Manifest[];
+  manifests: Manifest[] = [];
   selectedManifest: Manifest;
-  tableWidth: number;
-  tableHeight: number;
+  pageSize = 15;
 
-  constructor(private repositoryService: RepositoryService, private route: ActivatedRoute) {
-    this.gridOptions = <GridOptions>{};
-    this.gridOptions.defaultColDef = {
-      headerComponentFramework: <{ new(): GridHeaderComponent }>GridHeaderComponent,
-      headerComponentParams: {
-        menuIcon: 'fa-bars'
-      }
-    };
-
-    this.columnDefs = [
-      { headerName: 'Tag', field: 'tag', headerComponentParams: { menuIcon: 'fa fa-qrcode' } },
-      {
-        headerName: 'Created', field: 'metadata.created', valueFormatter: this.dateFormatter,
-        headerComponentParams: { menuIcon: 'fa fa-calendar' }
-      },
-      {
-        headerName: 'Author', field: 'metadata.author', valueFormatter: this.authorFormatter,
-        headerComponentParams: { menuIcon: 'fa fa-user' }
-      },
-      { headerName: 'Docker Version', field: 'metadata.docker_version', headerComponentParams: { menuIcon: 'fa fa-ship' } },
-      { headerName: 'OS', field: 'metadata.os', headerComponentParams: { menuIcon: 'fa fa-laptop' } }
-    ];
-  }
+  constructor(private repositoryService: RepositoryService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.repositoryService.tags({ name: params.get('namespace') + '/' + params.get('name') }))
       .subscribe(repository => {
         this.repository = repository;
-        const observables: Observable<Manifest>[] = [];
         this.repository.tags = _.reverse(_.sortBy(this.repository.tags));
-        repository.tags.forEach(tag => {
-          observables.push(this.repositoryService.manifest({ name: repository.name, tag: tag }));
-        });
-        Observable.forkJoin(observables).subscribe(manifests => {
-          this.manifests = manifests;
-
-          this.tableHeight = Math.min(30 * manifests.length + 50, 400);
-          this.tableWidth = 1020;
-          this.gridOptions.api.doLayout();
-        });
       });
   }
 
-  onGridReady(params) {
-    params.api.sizeColumnsToFit();
+  onSelectManifest(manifest) {
+    this.selectedManifest = manifest;
   }
 
-  onSelectionChanged(event) {
-    this.selectedManifest = event.api.getSelectedRows()[0];
+  pageChange(event) {
+    if (this.repository) {
+      const start = (event - 1) * this.pageSize;
+      const end = Math.min(this.repository.tags.length, start + this.pageSize);
+      const observables: Observable<Manifest>[] = [];
+      for (let i = start; i < end; i++) {
+        observables.push(this.repositoryService.manifest({ name: this.repository.name, tag: this.repository.tags[i] }));
+      }
+      Observable.forkJoin(observables).subscribe(manifests => {
+        this.manifests = manifests;
+      });
+    }
   }
 
   authorFormatter(params) {
