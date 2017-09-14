@@ -15,4 +15,8 @@ export class ManifestDetailComponent implements OnInit {
   ngOnInit() {
   }
 
+  hasLabels() {
+    return Object.keys(this.manifest.metadata.labels).length;
+  }
+
 }
