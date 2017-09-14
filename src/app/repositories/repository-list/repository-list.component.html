@@ -39,9 +39,7 @@
       </p>
     </div>
   </div>
-  <div class="row">
-    <div class="col-lg-4 col-md-4 col-sm-2">
-      <app-repository-item *ngFor="let repository of repositories | name:nameFilter" [repository]="repository" (repositorySelected)="onSelected($event)"></app-repository-item>
-    </div>
+  <div class="repository-listing">
+    <app-repository-item *ngFor="let repository of repositories | name:nameFilter" [repository]="repository" (repositorySelected)="onSelected($event)"></app-repository-item>
   </div>
 </div>
