@@ -28,7 +28,7 @@ Install the CLI by running `npm install -g @angular/cli`.
 ### Install dependencies
 
 Run "npm install" inside this project folder to install all dependencies.
-Make sure you use the latest version of the CLI (upgrade guide below)
+Make sure you use the latest version of the CLI ([upgrade guide](https://github.com/angular/angular-cli#updating-angular-cli))
 
 ### Development server
 
