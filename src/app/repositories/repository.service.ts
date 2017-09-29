@@ -49,7 +49,7 @@ export class RepositoryService {
       const lastHistoryLayer = JSON.parse(_.get(history[0], 'v1Compatibility'));
       manifest.metadata = lastHistoryLayer;
       manifest.metadata.labels = _.get(lastHistoryLayer, 'config.Labels');
-      manifest.metadata.author = lastHistoryLayer.author || lastHistoryLayer.labels['maintainer'];
+      manifest.metadata.author = lastHistoryLayer.author || (manifest.metadata.labels && manifest.metadata.labels['maintainer']);
     }
     return manifest;
   }
