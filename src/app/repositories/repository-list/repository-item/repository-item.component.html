@@ -1,1 +1,1 @@
-<a [routerLink]="'/repositories/' + repository.name + '/detail'" class="list-group-item list-group-item-action">{{ repository.name }}</a>
+<a [routerLink]="'/manifests'" [queryParams]="{'name':repository.name}" class="list-group-item list-group-item-action">{{ repository.name }}</a>

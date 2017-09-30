@@ -6,7 +6,7 @@ import { ManifestListComponent } from './repositories/manifest-list/manifest-lis
 
 const routes: Routes = [
   { path: '', redirectTo: 'repositories', pathMatch: 'full' },
-  { path: 'repositories/:namespace/:name/detail', component: ManifestListComponent },
+  { path: 'manifests', component: ManifestListComponent },
   { path: 'repositories', component: RepositoryListComponent }
 ];
 

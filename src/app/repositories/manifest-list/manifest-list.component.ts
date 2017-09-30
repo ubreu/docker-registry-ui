@@ -23,8 +23,8 @@ export class ManifestListComponent implements OnInit {
   constructor(private repositoryService: RepositoryService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.paramMap
-      .switchMap((params: ParamMap) => this.repositoryService.tags({ name: params.get('namespace') + '/' + params.get('name') }))
+    this.route.queryParamMap
+      .switchMap((params: ParamMap) => this.repositoryService.tags({ name: params.get('name') }))
       .subscribe(repository => {
         this.repository = repository;
         this.repository.tags = _.reverse(_.sortBy(this.repository.tags));
