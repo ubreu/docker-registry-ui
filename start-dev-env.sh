@@ -23,8 +23,12 @@ EOF
 
 IMAGE_ID=$(docker build -q $WORK_DIR)
 echo "tagging images using id $IMAGE_ID...\n"
+docker tag busybox localhost:5000/acme/busybox:imagewithnolabels
+docker tag busybox localhost:5000/acme/anvil/busybox:imagewithnolabels
+docker push localhost:5000/acme/anvil/busybox
+
 for repo in "acme/$TEST_IMAGE" "initech/$TEST_IMAGE"; do
-  for i in {01..100}; do
+  for i in {01..20}; do
    docker tag $IMAGE_ID localhost:5000/$repo:$(printf "%02d" $i)
   done;
   docker push localhost:5000/$repo
