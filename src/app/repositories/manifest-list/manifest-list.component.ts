@@ -16,6 +16,7 @@ import { RepositoryService } from '../repository.service';
 })
 export class ManifestListComponent implements OnInit {
   repository: RepositoryWithTags;
+  filteredTags: string[] = [];
   manifests: Manifest[] = [];
   selectedManifest: Manifest;
   pageSize = 15;
@@ -28,6 +29,7 @@ export class ManifestListComponent implements OnInit {
       .subscribe(repository => {
         this.repository = repository;
         this.repository.tags = _.reverse(_.sortBy(this.repository.tags));
+        this.filteredTags = Object.assign([], this.repository.tags);
       });
   }
 
@@ -35,13 +37,23 @@ export class ManifestListComponent implements OnInit {
     this.selectedManifest = manifest;
   }
 
-  pageChange(event) {
+  onNameFilterChanged(name) {
+    if (!name) {
+      this.filteredTags = Object.assign([], this.repository.tags);
+    } else {
+      this.filteredTags = Object.assign([], this.repository.tags)
+        .filter(tag => tag.toLowerCase().indexOf(name.toLowerCase()) > -1);
+    }
+    this.pageChange(1);
+  }
+
+  pageChange(currentPage) {
     if (this.repository) {
-      const start = (event - 1) * this.pageSize;
-      const end = Math.min(this.repository.tags.length, start + this.pageSize);
+      const start = (currentPage - 1) * this.pageSize;
+      const end = Math.min(this.filteredTags.length, start + this.pageSize);
       const observables: Observable<Manifest>[] = [];
       for (let i = start; i < end; i++) {
-        observables.push(this.repositoryService.manifest({ name: this.repository.name, tag: this.repository.tags[i] }));
+        observables.push(this.repositoryService.manifest({ name: this.repository.name, tag: this.filteredTags[i] }));
       }
       Observable.forkJoin(observables).subscribe(manifests => {
         this.manifests = manifests;
