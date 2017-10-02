@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import Moment = moment.Moment;
 
+import { AppConfig } from '../../app.config';
 import { RepositoryWithTags, Manifest } from '../repository.model';
 import { RepositoryService } from '../repository.service';
 
@@ -20,8 +21,11 @@ export class ManifestListComponent implements OnInit {
   manifests: Manifest[] = [];
   selectedManifest: Manifest;
   pageSize = 15;
+  registryDomainName: String;
 
-  constructor(private repositoryService: RepositoryService, private route: ActivatedRoute) { }
+  constructor(private repositoryService: RepositoryService, private route: ActivatedRoute, private appConfig: AppConfig) {
+    this.registryDomainName = this.appConfig.getRegistryDomainName();
+  }
 
   ngOnInit(): void {
     this.route.queryParamMap

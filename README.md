@@ -10,10 +10,14 @@ A simple frontend for a [Docker registry](https://github.com/docker/distribution
 
 ## Usage
 
-The docker image requires a single configuration file in JSON format. The key 'registryHost' must point to the docker registry (URL up to the /v2 segment), e.g:
+The docker image requires a single configuration file in JSON format.
+
+The key 'registryHost' must point to the docker registry (URL up to the /v2 segment).
+The key 'registryDomainName' should contain the fully qualified domain name and the optional port for the docker registry.
 
     {
-      "registryHost": "https://my.registry.org/"
+      "registryHost": "http://localhost:5000",
+      "registryDomainName": "localhost:5000"
     }
 
 The docker image can then be started as follows:

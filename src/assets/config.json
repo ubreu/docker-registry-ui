@@ -1,3 +1,4 @@
 {
-  "registryHost": "http://localhost:5000"
+  "registryHost": "http://localhost:5000",
+  "registryDomainName": "localhost:5000"
 }

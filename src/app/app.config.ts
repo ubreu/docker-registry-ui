@@ -13,6 +13,10 @@ export class AppConfig {
     return this.config['registryHost'];
   }
 
+  public getRegistryDomainName() {
+    return this.config['registryDomainName'];
+  }
+
   public load() {
     return new Promise((resolve, reject) => {
       this.http.get('assets/config.json').catch((error: any): any => {

@@ -3,10 +3,10 @@
   <h1 *ngIf="repository" class="display-8 d-none d-sm-block">
     Image Details of {{ repository.name }}
   </h1>
-  <h3 class="sub-header mt-5">Tags</h3>
+  <h3 class="sub-header mt-3">Tags</h3>
   <div *ngIf="repository" class="row">
     <div class="col-lg-4 col-md-4 col-sm-2">
-      <p class="lead mt-5">
+      <p class="lead mt-3">
         <input type="search" placeholder="Filter tags ..." (input)="onNameFilterChanged($event.target.value)" class="form-control"
         />
       </p>
@@ -39,7 +39,14 @@
       <ngb-pagination [collectionSize]="filteredTags.length" [pageSize]="pageSize" (pageChange)="pageChange($event)" aria-label="Default pagination"></ngb-pagination>
     </div>
   </div>
+  <div class="card border-light mb-3" style="width: 50rem; border: none;">
+    <div class="card-body">
+      <p *ngIf="selectedManifest" class="card-text">
+        <kbd>docker pull {{registryDomainName }}/{{ repository.name }}:{{ selectedManifest.tag }}</kbd>
+      </p>
+    </div>
+  </div>
   <div class="row">
-    <app-manifest-detail [manifest]="selectedManifest"></app-manifest-detail>
+    <app-manifest-detail [manifest]="selectedManifest "></app-manifest-detail>
   </div>
 </div>
