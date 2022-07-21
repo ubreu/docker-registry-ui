@@ -1,6 +1,12 @@
-.list-group-item {
-  border: none;
-  padding: 2px;
+a {
+  display: inline-block;
+  width: 100%;
+  color: #495057;
   font-size: 16px;
   font-weight: 500;
+
+  &:hover {
+    background-color: #f8f9fa;
+    text-decoration: none;
+  }
 }
